@@ -1,10 +1,12 @@
 import  '../styles/InputBox.scss'
 
-const InputBox = () => {
+const InputBox = ({ setHeritage }) => {
 	return ( 
 	<div>
-		<label htmlFor="heritage">Wpisz wysokość spadku</label>
-  		<input type="text" id="heritage" name="heritage" className="input"/>
+		<label>
+			Wpisz wysokość spadku
+  			<input type="text" name="heritage" className="input" onChange={(e)=>setHeritage(e.target.value)}/>
+		</label>
 		<button className="button">Oblicz</button>
 	</div>
 	);

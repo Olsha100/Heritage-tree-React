@@ -1,18 +1,23 @@
 import '../styles/FamilyTree.scss'
-import { useState } from 'react';
 import FamilyMemberCard from './FamilyMemberCard';
 
-const FamilyTree = () => {
+const FamilyTree = ({familyMembers, addFamilyMember, removeFamilyMember, incrementChildrenNumber}) => {
 	
-	const[familyMembers, setFamilyMembers] = useState( [{ name:'Adam',age:30, key:1 }])
 
-	const familyMembersList = familyMembers.map(member => <FamilyMemberCard name={member.name} age={member.age} key={member.key}/>) 
+	const familyMembersList = familyMembers.map(member => 
+			<FamilyMemberCard 
+				key={member.key}
+				id={member.id}
+				name={member.name} 
+				heritageStake={member.heritageStake}
+				addFamilyMember={addFamilyMember}
+				removeFamilyMember={removeFamilyMember}	
+				incrementChildrenNumber={incrementChildrenNumber}
+			/>) 
 
-	const addFamilyMember = () => {setFamilyMembers([...familyMembers, { name:'Jola', age:20, key:2 }])}
 	return ( 
 	<div className="container">
 		{ familyMembersList }
-		<button onClick={()=>addFamilyMember()}> Add family member </button>
 	</div> 
 	);
 }

@@ -1,5 +1,8 @@
 .container{
-	width:100px;
+	display:flex;
+	flex-direction: column;
+	width:max-content;
 	height:100px;
 	background:rgb(176, 176, 197);
+	margin:1rem;
 }

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import  '../styles/FamilyMemberCard.scss'
 
-const FamilyMemberCard = ({ id, name, heritageStake, addFamilyMember, removeFamilyMember, incrementChildrenNumber }) => {
+const FamilyMemberCard = ({ id, parentId, name, heritageStake, addFamilyMember, removeFamilyMember, incrementChildrenNumber, decrementChildrenNumber }) => {
 
 	let [ childName, setChildName ] = useState('');
 
@@ -18,13 +18,14 @@ const FamilyMemberCard = ({ id, name, heritageStake, addFamilyMember, removeFami
 		</label>
 		<button 
 			onClick={()=>{
+				if(childName){
 				addFamilyMember(childName, id); 
-				incrementChildrenNumber();
 				clearInput();
 				incrementChildrenNumber(id);
+			}
 			}}
 			>+ Dziecko</button>
-		<button onClick={(e)=>removeFamilyMember(e.target.parentElement.id)}>Usuń osobę</button>
+		<button onClick={()=>{removeFamilyMember(id);decrementChildrenNumber(parentId)}}>Usuń osobę</button>
 	</div> 
 	);
 }

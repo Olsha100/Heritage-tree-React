@@ -5,7 +5,7 @@ const InputBox = ({ setHeritage }) => {
 	<div>
 		<label>
 			Wpisz wysokość spadku
-  			<input type="text" name="heritage" className="input" onChange={(e)=>setHeritage(e.target.value)}/>
+  			<input type="text" name="heritage" className="input" onChange={(e)=>setHeritage(Number(e.target.value))}/>
 		</label>
 		<button className="button">Oblicz</button>
 	</div>

@@ -10,18 +10,28 @@ function App() {
 	
 	const[familyMembers, setFamilyMembers] = 
 	useState( [{ 
-			id:uuidv4(), 
-			parentId: 0,
 			key:uuidv4(), 
-			name:'Adam',
+			id:uuidv4(), 
+			name:'Buba',
+			parentId: 0,
+			parentHeritageStake: 1,
+			heritageStake:1,
 			childrenNumber:0,
-			syblingsNumber:1,
-			heritageStake:2
+			syblingsNumber:0
 		}]);
 
 	// The following functions operate on familyMembers' state so they have to be declared in App component.
-	const addFamilyMember = (id, name, heritageStake, syblingsNumber) => {
-			setFamilyMembers([...familyMembers, { id:uuidv4(), parentId:id, key:uuidv4() ,name, childrenNumber:0, heritageStake, syblingsNumber }]);
+	const addFamilyMember = (id, name, parentHeritageStake, syblingsNumber) => {
+			setFamilyMembers([...familyMembers, 
+				{	id:uuidv4(), 
+					parentId:id, 
+					key:uuidv4(),
+					name, 
+					childrenNumber:0, 
+					parentHeritageStake, 
+					heritageStake:parentHeritageStake, 
+					syblingsNumber 
+				}]);
 	}
 
 	const removeFamilyMember = (id) => {
@@ -36,25 +46,32 @@ function App() {
 		setFamilyMembers(current => current.map(member => {if(member.id === id){return {...member, childrenNumber: member.childrenNumber--}} else {return member}}))
 	}
 
-	const incrementSyblingsNumber = (parentId) =>{
+	const incrementSyblingsNumber = (parentId) => {
 		setFamilyMembers(current => current.map(member => {if(member.parentId === parentId){return {...member, syblingsNumber: member.syblingsNumber++}} else {return member}}))
 	}
 
-	const decrementSyblingsNumber = (parentId) =>{
+	const decrementSyblingsNumber = (parentId) => {
 		setFamilyMembers(current => current.map(member => {if(member.parentId === parentId){return {...member, syblingsNumber: member.syblingsNumber--}} else {return member}}))
+	}
+
+	const calculateHeritageStake = () => {
+		setFamilyMembers(current => current.map(member => {if(member.syblingsNumber > 0){return {...member, heritageStake: member.parentHeritageStake / member.syblingsNumber}} else {return member}}))
 	}
 
 	
 	return (
 		<div className="App">
-			<InputBox heritage={heritage} setHeritage={setHeritage}/>
-			<FamilyTree familyMembers={familyMembers} 
-			addFamilyMember={addFamilyMember} 
-			removeFamilyMember={removeFamilyMember} 
-			incrementChildrenNumber={incrementChildrenNumber} 
-			decrementChildrenNumber={decrementChildrenNumber}
-			incrementSyblingsNumber={incrementSyblingsNumber} 
-			decrementSyblingsNumber={decrementSyblingsNumber}
+			<InputBox setHeritage={ setHeritage }/>
+			<FamilyTree 
+				familyMembers = { familyMembers } 
+				heritage = { heritage }
+				addFamilyMember = { addFamilyMember } 
+				removeFamilyMember = { removeFamilyMember } 
+				incrementChildrenNumber = { incrementChildrenNumber } 
+				decrementChildrenNumber = { decrementChildrenNumber }
+				incrementSyblingsNumber = { incrementSyblingsNumber } 
+				decrementSyblingsNumber = { decrementSyblingsNumber }
+				calculateHeritageStake = { calculateHeritageStake }
 			/>
 		</div>
 	);

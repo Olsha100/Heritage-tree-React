@@ -1,7 +1,7 @@
 import '../styles/FamilyTree.scss'
 import FamilyMemberCard from './FamilyMemberCard';
 
-const FamilyTree = ({familyMembers, addFamilyMember, removeFamilyMember, incrementChildrenNumber, decrementChildrenNumber, incrementSyblingsNumber, decrementSyblingsNumber}) => {
+const FamilyTree = ({familyMembers, heritage, addFamilyMember, removeFamilyMember, incrementChildrenNumber, decrementChildrenNumber, incrementSyblingsNumber, decrementSyblingsNumber, calculateHeritageStake}) => {
 	
 
 	const familyMembersList = familyMembers.map(member => 
@@ -10,7 +10,8 @@ const FamilyTree = ({familyMembers, addFamilyMember, removeFamilyMember, increme
 				id={member.id}
 				parentId={member.parentId}
 				name={member.name} 
-				syblingsNumber={member.syblingsNumber}
+				syblingsNumber={member.childrenNumber}
+				heritage={heritage}
 				heritageStake={member.heritageStake}
 				addFamilyMember={addFamilyMember}
 				removeFamilyMember={removeFamilyMember}	
@@ -18,6 +19,7 @@ const FamilyTree = ({familyMembers, addFamilyMember, removeFamilyMember, increme
 				decrementChildrenNumber={decrementChildrenNumber}
 				incrementSyblingsNumber={incrementSyblingsNumber} 
 				decrementSyblingsNumber={decrementSyblingsNumber}
+				calculateHeritageStake={calculateHeritageStake}
 			/>) 
 
 	return ( 
